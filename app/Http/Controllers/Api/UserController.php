@@ -6,8 +6,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Requests\Api\User\LoginRequest;
+use App\Requests\Api\User\RegisterRequest;
 use App\Services\Api\UserService;
 
+/**
+ * 用户相关模块
+ * Class UserController
+ * @package App\Http\Controllers\Api
+ */
 class UserController extends Controller
 {
     public function __construct(UserService $service)
@@ -21,12 +27,9 @@ class UserController extends Controller
         return $this->service->login($request->validated());
     }
 
-
-    // 用户注销
-    public function logout()
+    public function register(RegisterRequest $request)
     {
-
+        return $this->service->register($request->validated());
     }
-
 
 }

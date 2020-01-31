@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +11,8 @@ use Illuminate\Http\Request;
 | is assigned the "Api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:Api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('user/login', 'Api\UserController@login');
+Route::post('user/register', 'Api\UserController@register');
+Route::middleware('auth.jwt')->group(function ($router){
+    Route::post('user/logout', 'Api\UserController@logout');
 });
