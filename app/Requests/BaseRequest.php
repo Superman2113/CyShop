@@ -3,6 +3,7 @@
 
 namespace App\Requests;
 
+use App\Codes\ErrorCode;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,6 +27,6 @@ class BaseRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $error = $validator->errors()->first();
-        throw new RequestInvalidException($error, 10000);
+        throw new RequestInvalidException($error, ErrorCode::INVALID_PARAM);
     }
 }

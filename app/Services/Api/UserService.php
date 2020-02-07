@@ -4,14 +4,16 @@
 namespace App\Services\Api;
 
 
+use App\Codes\ErrorCode;
 use App\Repositories\UserRepository;
 use App\Services\BaseService;
 use Exception;
-use Illuminate\Contracts\Auth\Guard;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\JWTAuth;
 
 
+/**
+ * 用户信息相关业务逻辑
+ * @package App\Services\Api
+ */
 class UserService extends BaseService
 {
 
@@ -29,11 +31,13 @@ class UserService extends BaseService
      */
     public function login($params)
     {
-
-        $params['password'] = \Hash::make($params['password']);
-
-        $res = \auth('api')->attempt($params);
-        dd($res);
+        $token = \auth('api')->attempt($params);
+        if (!$token) {
+            return $this->error(10001, '账号不存在或密码错误');
+        }
+        $user = $this->repository->getUserInfoById(\auth('api')->id());
+        $user->token = 'Bearer ' . $token;
+        return $this->data($user, '登录成功!');
     }
 
 
@@ -46,12 +50,12 @@ class UserService extends BaseService
     public function register($params)
     {
         unset($params['password_confirmation']);
-        $params['password'] = \Hash::make($params['password']);
+        $params['password'] = md5($params['password']);
         $flag = $this->repository->create($params);
         if ($flag) {
             return $this->data(['name'=>$params['name']], '注册成功');
         }
-        return $this->error(20001, '注册失败');
+        return $this->error(ErrorCode::INSERT_FAILED, '注册失败');
     }
 
 
@@ -60,6 +64,21 @@ class UserService extends BaseService
      */
     public function logout()
     {
+        \auth('api')->logout();// 注销操作需要已登录，在中间件中已认证无需再次认证!
         return $this->data(true, '注销成功');
+    }
+
+    /**
+     * 更新用户信息
+     * @param $data
+     * @return false|string
+     */
+    public function info($data)
+    {
+        $ok = $this->repository->updateUserInfo($data);
+        if ($ok) {
+            return $this->data(true, '更新成功');
+        }
+        return $this->error(ErrorCode::UPDATE_FAILED,'更新失败');
     }
 }

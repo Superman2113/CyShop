@@ -7,6 +7,8 @@ namespace App\Repositories;
 use App\Models\UserInfoModel;
 use App\Models\UsersModel;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository
 {
@@ -45,8 +47,30 @@ class UserRepository
         }
     }
 
-    public function getUserById($id)
+    /**
+     * 获取用户详情
+     * @param $id
+     * @return UsersModel|Builder|Model|object|null
+     */
+    public function getUserInfoById($id)
     {
-        return $this->model->find($id);
+        return $this->userModel->with('userInfo')->first(['id', 'name']);
+    }
+
+    /**
+     * 更新用户详情
+     * @param $data
+     * @return bool
+     */
+    public function updateUserInfo($data)
+    {
+        $user_id = auth('api')->id();
+        try {
+            $this->userInfoModel->whereUserId($user_id)->update($data);
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
+
     }
 }

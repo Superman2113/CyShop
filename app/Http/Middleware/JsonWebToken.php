@@ -3,6 +3,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Codes\ErrorCode;
 use Closure;
 use App\Exceptions\ApiException;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
@@ -18,14 +19,14 @@ class JsonWebToken extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         if (!$request->header('Authorization'))
-            throw new ApiException('缺少Token', 40001);
+            throw new ApiException('缺少Token', ErrorCode::LOST_TOKEN);
         try {
             $user = auth()->guard('admin')->userOrFail();
             if(!$user) {
-                throw new ApiException('无效Token', 40002);
+                throw new ApiException('无效Token', ErrorCode::INVALID_TOKEN);
             }
         } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            throw new ApiException('无效Token', 40002);
+            throw new ApiException('无效Token', ErrorCode::INVALID_TOKEN);
         }
         return $next($request);
     }
