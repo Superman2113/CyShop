@@ -5,13 +5,15 @@ namespace App\Models;
 
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * App\Models\UsersModel
+ * 用户模型定义
  *
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel newQuery()
@@ -24,13 +26,13 @@ class UsersModel extends Authenticatable implements JWTSubject
 
     public $timestamps = true;
 
-    CONST USER_STATUS_ON = 1;  // 账号启用
-    CONST USER_STATUS_OFF = 0; // 账号禁用
-
-    CONST USER_STATUS_MAP = [
-        self::USER_STATUS_ON => '启用',
-        self::USER_STATUS_OFF => '禁用'
-    ];
+//    CONST USER_STATUS_ON = 1;  // 账号启用
+//    CONST USER_STATUS_OFF = 0; // 账号禁用
+//
+//    CONST USER_STATUS_MAP = [
+//        self::USER_STATUS_ON => '启用',
+//        self::USER_STATUS_OFF => '禁用'
+//    ];
 
     protected $table = 'users';
 

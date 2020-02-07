@@ -5,6 +5,7 @@ namespace App\Services\Api;
 
 
 use App\Codes\ErrorCode;
+use App\Codes\LoginStatusCode;
 use App\Repositories\UserRepository;
 use App\Services\BaseService;
 use Exception;
@@ -80,5 +81,21 @@ class UserService extends BaseService
             return $this->data(true, '更新成功');
         }
         return $this->error(ErrorCode::UPDATE_FAILED,'更新失败');
+    }
+
+    /**
+     * 记录登录日志
+     * @param $name
+     * @param int $login_status
+     */
+    private function rememberLoginLog($name, $login_status=LoginStatusCode::LOGIN_STATUS_FAILED)
+    {
+        $user_id = $this->repository->getUserIdByName($name);
+
+        if (!$user_id) { // 找不到该用户无需记录
+            return;
+        }
+        $login_ip = request()->getClientIp();
+        $this->repository->rememberLoginLog($user_id, $login_status, '');
     }
 }

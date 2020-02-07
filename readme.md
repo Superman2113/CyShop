@@ -96,5 +96,5 @@
 - Laravel Auth 的bcrypt加密方式已改为MD5加密。
 - Laravel 数据库默认为一主一从的读写分离。
 - Session/Cache/Queue默认驱动为Redis。
-- 采用Services模式和Repository模式组织项目结构。
+- 采用Services模式和Repository模式组织优雅的项目结构，精简控制器(仅一行代码)。
 - 代码遵循MIT开源协议，可用于学习和修改进行商业使用。

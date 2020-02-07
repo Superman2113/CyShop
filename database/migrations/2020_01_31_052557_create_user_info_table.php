@@ -20,7 +20,7 @@ class CreateUserInfoTable extends Migration
             $table->string('nickname', 30)->comment('用户昵称');
             $table->string('avatar', 100)->default('')->comment('用户头像');
             $table->string('point')->default(0)->comment('用户积分');
-            $table->tinyInteger('sex')->default(\App\Models\UserInfoModel::SEX_SECRET)->comment('用户性别:0保密,1男,2女');
+            $table->tinyInteger('sex')->default(\App\Codes\UserInfoCode::SEX_SECRET)->comment('用户性别:0保密,1男,2女');
             $table->string('mobile', 11)->default('')->comment('用户手机号');
             $table->string('truename', 30)->default('')->comment('用户真实姓名');
             $table->timestamp('birthday')->nullable()->comment('会员生日');

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('登录名');
             $table->string('password', 191)->comment('登录密码md5加密');
-            $table->tinyInteger('status')->default(\App\Models\UsersModel::USER_STATUS_ON)->comment('账号状态: 1 启用 0 禁用');
+            $table->tinyInteger('status')->default(\App\Codes\UserStatusCode::USER_STATUS_ON)->comment('账号状态: 1 启用 0 禁用');
             $table->rememberToken()->comment('登录凭证');
             $table->timestamps();
             $table->index('name', 'index_name', 'btree');  // 索引
