@@ -34,10 +34,12 @@ class UserService extends BaseService
     {
         $token = \auth('api')->attempt($params);
         if (!$token) {
+            $this->rememberLoginLog($params['name'], LoginStatusCode::LOGIN_STATUS_FAILED);
             return $this->error(10001, '账号不存在或密码错误');
         }
         $user = $this->repository->getUserInfoById(\auth('api')->id());
         $user->token = 'Bearer ' . $token;
+        $this->rememberLoginLog($params['name'], LoginStatusCode::LOGIN_STATUS_SUCCESS);
         return $this->data($user, '登录成功!');
     }
 
@@ -74,9 +76,9 @@ class UserService extends BaseService
      * @param $data
      * @return false|string
      */
-    public function info($data)
+    public function profile($data)
     {
-        $ok = $this->repository->updateUserInfo($data);
+        $ok = $this->repository->updateUserProfile($data);
         if ($ok) {
             return $this->data(true, '更新成功');
         }
@@ -96,6 +98,7 @@ class UserService extends BaseService
             return;
         }
         $login_ip = request()->getClientIp();
-        $this->repository->rememberLoginLog($user_id, $login_status, '');
+        $login_ip = ip2long($login_ip);
+        $this->repository->rememberLoginLog($user_id, $login_status, $login_ip);
     }
 }

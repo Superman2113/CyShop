@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.48 on 2020-01-31 05:15:41.
+ * Generated for Laravel 5.5.48 on 2020-02-07 20:58:43.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1797,7 +1797,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\UsersModel|null 
          * @static 
          */ 
         public static function user()
@@ -1810,7 +1810,7 @@ namespace Illuminate\Support\Facades {
          * Get the currently authenticated user or throws an exception.
          *
          * @throws \Tymon\JWTAuth\Exceptions\UserNotDefinedException
-         * @return \App\User 
+         * @return \App\Models\UsersModel 
          * @static 
          */ 
         public static function userOrFail()
@@ -2042,7 +2042,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\UsersModel|null 
          * @static 
          */ 
         public static function getUser()
@@ -2079,7 +2079,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \App\Models\UsersModel 
          * @static 
          */ 
         public static function getLastAttempted()
@@ -2091,7 +2091,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
+         * @return \App\Models\UsersModel 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */ 
@@ -5717,60 +5717,36 @@ namespace Illuminate\Support\Facades {
     class Hash {
         
         /**
-         * Hash the given value.
+         * 
          *
-         * @param string $value
-         * @param array $options
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */ 
-        public static function make($value, $options = [])
-        {
-                        /** @var \Illuminate\Hashing\BcryptHasher $instance */
-                        return $instance->make($value, $options);
-        }
-        
-        /**
-         * Check the given plain value against a hash.
-         *
-         * @param string $value
-         * @param string $hashedValue
-         * @param array $options
-         * @return bool 
          * @static 
          */ 
         public static function check($value, $hashedValue, $options = [])
         {
-                        /** @var \Illuminate\Hashing\BcryptHasher $instance */
+                        /** @var \App\Helpers\Hashing\MD5Hash $instance */
                         return $instance->check($value, $hashedValue, $options);
         }
         
         /**
-         * Check if the given hash has been hashed using the given options.
+         * 
          *
-         * @param string $hashedValue
-         * @param array $options
-         * @return bool 
          * @static 
          */ 
         public static function needsRehash($hashedValue, $options = [])
         {
-                        /** @var \Illuminate\Hashing\BcryptHasher $instance */
+                        /** @var \App\Helpers\Hashing\MD5Hash $instance */
                         return $instance->needsRehash($hashedValue, $options);
         }
         
         /**
-         * Set the default password work factor.
+         * 
          *
-         * @param int $rounds
-         * @return \Illuminate\Hashing\BcryptHasher 
          * @static 
          */ 
-        public static function setRounds($rounds)
+        public static function make($value, $options = [])
         {
-                        /** @var \Illuminate\Hashing\BcryptHasher $instance */
-                        return $instance->setRounds($rounds);
+                        /** @var \App\Helpers\Hashing\MD5Hash $instance */
+                        return $instance->make($value, $options);
         }
          
     }
@@ -14494,7 +14470,7 @@ namespace Encore\Admin\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\UsersModel|null 
          * @static 
          */ 
         public static function user()

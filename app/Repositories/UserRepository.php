@@ -32,7 +32,7 @@ class UserRepository
         try {
             $data['created_at'] = $data['updated_at'] = date('Y-m-d H:i:s', time());
             $user_id = $this->model->insertGetId($data); // 使用该方法不会自动更新时间字段
-            $this->model->userInfo()->insert([
+            $this->model->profile()->insert([
                 'user_id' => $user_id,
                 'registered_time' => date('Y-m-d H:i:s', time()),
                 'nickname' => '用户:' . $user_id,
@@ -51,9 +51,9 @@ class UserRepository
      * @param $id
      * @return UsersModel|Builder|Model|object|null
      */
-    public function getUserInfoById($id)
+    public function getUserProfileById($id)
     {
-        return $this->model->with('userInfo')->first(['id', 'name']);
+        return $this->model->with('profile')->first(['id', 'name']);
     }
 
     /**
@@ -61,11 +61,11 @@ class UserRepository
      * @param $data
      * @return bool
      */
-    public function updateUserInfo($data)
+    public function updateUserProfile($data)
     {
         $user = $this->model->find(auth('api')->id());
         try {
-            $user->userInfo()->update($data);
+            $user->profile()->update($data);
             return true;
         } catch (Exception $exception) {
             return false;

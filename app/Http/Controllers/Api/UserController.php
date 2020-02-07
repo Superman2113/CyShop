@@ -54,8 +54,8 @@ class UserController extends Controller
 
 
 
-    public function info(UpdateInfoRequest $request)
+    public function profile(UpdateInfoRequest $request)
     {
-        return $this->service->info($request->validated());
+        return $this->service->profile($request->validated());
     }
 }

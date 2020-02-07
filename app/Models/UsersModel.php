@@ -4,10 +4,12 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -19,6 +21,26 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $name 登录名
+ * @property string $password 登录密码md5加密
+ * @property int $status 账号状态: 1 启用 0 禁用
+ * @property string|null $remember_token 登录凭证
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|UserAddressModel[] $userAddress
+ * @property-read int|null $user_address_count
+ * @property-read UserInfoModel $userInfo
+ * @property-read Collection|UserLoginLogModel[] $userLoginLog
+ * @property-read int|null $user_login_log_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersModel whereUpdatedAt($value)
+ * @property-read UserInfoModel $profile
  */
 class UsersModel extends Authenticatable implements JWTSubject
 {
@@ -51,6 +73,9 @@ class UsersModel extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    protected $with = [
+        'profile'
+    ];
 
     /**
      * @return mixed
@@ -69,7 +94,7 @@ class UsersModel extends Authenticatable implements JWTSubject
     }
 
     // 关联用户详情表
-    public function userInfo()
+    public function profile()
     {
         return $this->hasOne(UserInfoModel::class, 'user_id', 'id');
     }
