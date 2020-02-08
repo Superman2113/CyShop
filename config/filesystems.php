@@ -70,6 +70,18 @@ return [
             'url' => env('APP_URL').'/public/upload/',
         ],
 
+        'oss' => [
+            'driver'     => 'oss',
+            'access_id'  => env('OSS_ACCESS_ID','your id'),
+            'access_key' => env('OSS_ACCESS_KEY','your key'),
+            'bucket'     => env('OSS_BUCKET','your bucket'),
+            'endpoint'   => env('OSS_ENDPOINT','your endpoint'),
+            'ssl'        => false,
+            'cdnDomain'  => '<CDN domain, cdn域名>',
+            'isCName'    => false,
+            'debug'      => true
+        ],
+
     ],
 
 ];

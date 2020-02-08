@@ -54,5 +54,9 @@
   "profile.email": "邮箱",
   "profile.truename": "真实姓名",
   "profile.point": "积分",
-  "profile.sex": "性别"
+  "profile.sex": "性别",
+  "profile.birthday": "生日",
+  "profile.email_verified": "邮箱验证状态",
+  "profile.email_verified_at": "邮箱验证时间",
+  "profile.registered_time": "注册时间"
 }

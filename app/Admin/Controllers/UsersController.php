@@ -34,16 +34,33 @@ class UsersController extends AdminController
 
         $grid->column('id', __('Id'))->sortable();
         $grid->column('name', __('user.name'))->sortable();
-        $grid->column('profile.avatar', __('profile.avatar'));
+        $grid->column('profile.avatar', __('profile.avatar'))->image();
         $grid->column('profile.nickname', __('profile.nickname'));
         $grid->column('profile.truename', __('profile.truename'));
         $grid->column('profile.sex', __('profile.sex'))->replace(UserInfoCode::SEX_MAP);
         $grid->column('profile.point', __('profile.point'));
         $grid->column('profile.mobile', __('profile.mobile'));
         $grid->column('profile.email', __('profile.email'));
-        $grid->column('status', __('user.status'))->replace(UserStatusCode::USER_STATUS_MAP);
+        $grid->column('status', __('user.status'))->switch(UserStatusCode::USER_STATUS_MAP);
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'))->sortable();
+
+        $grid->actions(function ($actions) {
+
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+
+        // 账号/昵称/手机/邮箱/搜索
+        $grid->quickSearch(function ($model, $query){
+            $model->whereHas('profile', function ($model) use ($query){
+                $model->where('nickname', 'like', "%{$query}%")
+                    ->orWhere('mobile', 'like', "%{$query}")
+                    ->orWhere('email', 'like', "%{$query}%");
+            })->orWhere('name', 'like', "%{$query}%");
+        })->placeholder('输入账号/昵称/手机/邮箱搜索');
 
         return $grid;
     }
@@ -60,27 +77,47 @@ class UsersController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('user.name'));
-        $show->field('status', __('user.status'));
+        $show->field('avatar', __('profile.avatar'))->as(function (){
+            return $this->profile->avatar;
+        })->image();
+        $show->field('nickname', __('profile.nickname'))->as(function (){
+           return $this->profile->nickname;
+        });
+        $show->field('truename', __('profile.truename'))->as(function (){
+            return $this->profile->truename;
+        });
+        $show->field('sex', __('profile.sex'))->as(function (){
+            return UserInfoCode::SEX_MAP[$this->profile->sex];
+        });
+        $show->field('mobile',__('profile.mobile'))->as(function (){
+            return $this->profile->mobile;
+        });
+        $show->field('birthday', __('profile.birthday'))->as(function (){
+            return $this->profile->birthday;
+        });
+        $show->field('email', __('profile.email'))->as(function (){
+            return $this->profile->email;
+        });
+        $show->field('email_verified', __('profile.email_verified'))->as(function (){
+            return UserInfoCode::EMAIL_VERIFIED_MAP[$this->profile->email_verified];
+        });
+        $show->field('email_verified_at', __('profile.email_verified_at'))->as(function (){
+            return $this->profile->email_verified_at;
+        });
+        $show->field('point',__('profile.point'))->as(function (){
+            return $this->profile->point;
+        });
+
+        $show->field('status', __('user.status'))->as(function (){
+            return UserStatusCode::USER_STATUS_MAP[$this->status];
+        });
+        $show->field('registered_time', __('profile.registered_time'))->as(function (){
+            return $this->profile->registered_time;
+        });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         return $show;
     }
 
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new UsersModel());
-
-        $form->text('name', __('Name'));
-        $form->password('password', __('Password'));
-        $form->switch('status', __('Status'))->default(1);
-        $form->text('remember_token', __('Remember token'));
-
-        return $form;
-    }
 }

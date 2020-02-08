@@ -19,4 +19,12 @@ class UserInfoCode
         self::SEX_MAN => '男',
         self::SEX_WOMAN => '女'
     ];
+
+    const EMAIL_VERIFIED_TRUE = 1; // 已验证
+    const EMAIL_VERIFIED_FALSE = 0;  // 未验证
+
+    const EMAIL_VERIFIED_MAP = [
+        self::EMAIL_VERIFIED_TRUE => '已验证',
+        self::EMAIL_VERIFIED_FALSE => '未验证',
+    ];
 }

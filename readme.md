@@ -92,6 +92,7 @@
 ## 其他说明
 
 - 采用JWT和请求中间件形式进行接口认证。
+- 使用阿里云OSS进行文件存储。
 - app.config, database.php, auth.php均有所更改。
 - Laravel Auth 的bcrypt加密方式已改为MD5加密。
 - Laravel 数据库默认为一主一从的读写分离。

@@ -123,7 +123,6 @@ return array(
     */
 
     'interfaces' => array(
-
     ),
 
     /*
