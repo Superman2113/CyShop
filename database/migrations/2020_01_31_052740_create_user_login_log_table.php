@@ -27,8 +27,8 @@ class CreateUserLoginLogTable extends Migration
             $table->foreign('user_id') // 外键关联
                 ->references('id')
                 ->on('users')
-                ->ondelete('cascade')
-                ->onupdate('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i<10000; $i++) {
+        for ($i=1; $i<100; $i++) {
             $user_id = \App\Models\UsersModel::insertGetId(
                 [
                     'name' => 'user' . $i,

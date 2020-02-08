@@ -58,5 +58,9 @@
   "profile.birthday": "生日",
   "profile.email_verified": "邮箱验证状态",
   "profile.email_verified_at": "邮箱验证时间",
-  "profile.registered_time": "注册时间"
+  "profile.registered_time": "注册时间",
+  "Parent Category": "父级分类",
+  "Category Name": "分类名称",
+  "Desc": "描述",
+  "Brand Name": "品牌名称"
 }

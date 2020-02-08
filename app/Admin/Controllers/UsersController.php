@@ -34,9 +34,12 @@ class UsersController extends AdminController
 
         $grid->column('id', __('Id'))->sortable();
         $grid->column('name', __('user.name'))->sortable();
-        $grid->column('profile.avatar', __('profile.avatar'))->image();
+        $grid->column('profile.avatar', __('profile.avatar'))->image('', 80, 80);
         $grid->column('profile.nickname', __('profile.nickname'));
-        $grid->column('profile.truename', __('profile.truename'));
+        $grid->column('profile.truename', __('profile.truename'))->display(function (){
+            return $this->profile->truename ?? '未填写';
+        });
+
         $grid->column('profile.sex', __('profile.sex'))->replace(UserInfoCode::SEX_MAP);
         $grid->column('profile.point', __('profile.point'));
         $grid->column('profile.mobile', __('profile.mobile'));
