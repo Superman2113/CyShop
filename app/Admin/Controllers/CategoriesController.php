@@ -3,75 +3,101 @@
 namespace App\Admin\Controllers;
 
 use App\Models\CategoriesModel;
-use Encore\Admin\Controllers\AdminController;
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Show;
+use Encore\Admin\Controllers\HasResourceActions;
+use Encore\Admin\Layout\{Column, Row, Content};
+use Encore\Admin\{Tree,Form};
+use Encore\Admin\Widgets\Box;
+use Illuminate\Http\RedirectResponse;
 
-class CategoriesController extends AdminController
+
+/**
+ * 分类管理
+ * @package App\Admin\Controllers
+ */
+class CategoriesController extends Content
 {
-    /**
-     * Title for current resource.
-     *
-     * @var string
-     */
+    use HasResourceActions;
+
     protected $title = '分类';
 
     /**
-     * Make a grid builder.
-     *
-     * @return Grid
+     * 首页
+     * @param Content $content
+     * @return Content
      */
-    protected function grid()
+    public function index(Content $content)
     {
-        $grid = new Grid(new CategoriesModel());
+        return $content->title('分类')
+            ->description('列表')
+            ->row(function (Row $row){
+                // 显示分类树状图
+                $row->column(6, $this->treeView()->render());
 
-        $grid->column('id', __('Id'));
-        $grid->column('cate_name', __('Category Name'));
-        $grid->column('parent_category', __('Parent Category'))->display(function (){
-            return $this->parent->cate_name ?? '顶级分类';
+                $row->column(6, function (Column $column){
+                    $form = new \Encore\Admin\Widgets\Form();
+                    $form->action(admin_url('categories'));
+                    $form->select('pid', __('Parent Category'))->options(CategoriesModel::selectOptions());
+                    $form->text('cate_name', __('Category Name'))->required();
+                    $form->number('sort', __('Asc Sort'))->default(99)->help('越小越靠前');
+                    $form->hidden('_token')->default(csrf_token());
+                    $column->append((new Box(__('category.new'), $form))->style('success'));
+                });
+
+            });
+    }
+
+
+    /**
+     * 树状视图
+     * @return Tree
+     */
+    protected function treeView()
+    {
+        return  CategoriesModel::tree(function (Tree $tree){
+            $tree->disableCreate(); // 关闭新增按钮
+            $tree->branch(function ($branch) {
+                return "<strong>{$branch['cate_name']}</strong>"; // 标题添加strong标签
+            });
         });
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-
-        $grid->quickSearch('cate_name')->placeholder('输入分类名称搜索');
-        return $grid;
     }
 
     /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
+     * 详情页
+     * @param $id
+     * @return RedirectResponse
      */
-    protected function detail($id)
+    public function show($id)
     {
-        $show = new Show(CategoriesModel::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('parent_category', __('Parent Category'))->as(function (){
-            return $this->parent->cate_name ?? '顶级分类';
-        });
-        $show->field('cate_name', __('Category Name'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
-
-        return $show;
+        return redirect()->route('categories.edit', ['id' => $id]);
     }
 
     /**
-     * Make a form builder.
-     *
+     * 编辑
+     * @param $id
+     * @param Content $content
+     * @return Content
+     */
+    public function edit($id, Content $content)
+    {
+        return $content->title(__('Categories'))
+            ->description(__('edit'))
+            ->row($this->form()->edit($id));
+    }
+
+
+    /**
+     * 表单
      * @return Form
      */
-    protected function form()
+    public function form()
     {
         $form = new Form(new CategoriesModel());
 
-        $form->number('pid', __('Pid'));
-        $form->text('cate_name', __('Cate name'));
-        $form->number('sort', __('Sort'))->default(99);
-
+        $form->display('id', 'ID');
+        $form->select('pid', __('Parent Category'))->options(CategoriesModel::selectOptions());
+        $form->text('cate_name', __('Category Name'))->required();
+        $form->number('sort', __('Asc Sort'))->default(99)->help('越小越靠前');
         return $form;
     }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\BrandModel;
+use App\Models\CategoriesModel;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -35,7 +36,7 @@ class BrandController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
-        // 账号/昵称/手机/邮箱/搜索
+        // 分类名称/品牌名称搜索
         $grid->quickSearch(function ($model, $query){
             $model->whereHas('category', function ($model) use ($query){
                 $model->where('cate_name', 'like', "%{$query}%");
@@ -75,10 +76,10 @@ class BrandController extends AdminController
     {
         $form = new Form(new BrandModel());
 
-        $form->number('cate_id', __('Cate id'));
-        $form->text('brand_name', __('Brand name'));
+        $form->select('cate_id', __('Category Name'))->options(CategoriesModel::selectOptions());
+        $form->text('brand_name', __('Brand Name'));
         $form->text('desc', __('Desc'));
-        $form->number('sort', __('Sort'))->default(99);
+        $form->number('sort', __('Asc Sort'))->default(99);
 
         return $form;
     }

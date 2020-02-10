@@ -62,5 +62,9 @@
   "Parent Category": "父级分类",
   "Category Name": "分类名称",
   "Desc": "描述",
-  "Brand Name": "品牌名称"
+  "Brand Name": "品牌名称",
+  "Categories": "分类",
+  "category.new": "新增分类",
+  "Asc Sort": "升序排序",
+  "edit": "编辑"
 }
