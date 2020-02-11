@@ -10,8 +10,10 @@
         "encore/laravel-admin": "^1.7",
         "fideloper/proxy": "~3.3",
         "jacobcyl/ali-oss-storage": "^2.1",
+        "laravel-admin-ext/wang-editor": "^1.2",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "namet/laravel-admin-tagsinput": "^0.2.1",
         "overtrue/laravel-lang": "~3.0",
         "tymon/jwt-auth": "1.*@rc"
     },

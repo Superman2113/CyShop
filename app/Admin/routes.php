@@ -14,4 +14,7 @@ Route::group([
     $router->resource('users', UsersController::class);
     $router->resource('categories', CategoriesController::class);
     $router->resource('brand', BrandController::class);
+    $router->resource('goods', GoodsController::class);
+    $router->resource('property-name', PropertyNameController::class);
+    $router->resource('property-value', PropertyValueController::class);
 });

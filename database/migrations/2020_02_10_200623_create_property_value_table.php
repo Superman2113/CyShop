@@ -17,14 +17,13 @@ class CreatePropertyValueTable extends Migration
             $table->increments('id');
             $table->string('title', 100)->comment('属性值名称');
             $table->unsignedInteger('prop_name_id')->comment('属性名ID');
-            $table->unsignedInteger('cate_id')->comment('分类ID');
-            $table->tinyInteger('status')->default(\App\Codes\BoolCode::IS_FALSE)->comment('属性值状态:1启用0禁用');
+            $table->tinyInteger('status')->default(\App\Codes\BoolCode::IS_TRUE)->comment('属性值状态:1启用0禁用');
             $table->unsignedSmallInteger('sort')->default(99)->comment('排序字段');
             $table->timestamps();
 
-            $table->foreign('cate_id') // 外键关联
+            $table->foreign('prop_name_id') // 外键关联
             ->references('id')
-                ->on('categories')
+                ->on('property_name')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

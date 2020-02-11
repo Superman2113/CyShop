@@ -8,6 +8,33 @@ use Encore\Admin\Traits\AdminBuilder;
 use Encore\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\CategoriesModel
+ *
+ * @property int $id
+ * @property int $pid 父级分类ID，0为顶级分类
+ * @property string $cate_name 分类名称
+ * @property int $sort 排序字段
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BrandModel[] $brand
+ * @property-read int|null $brand_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CategoriesModel[] $child
+ * @property-read int|null $child_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CategoriesModel[] $children
+ * @property-read int|null $children_count
+ * @property-read \App\Models\CategoriesModel $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel whereCateName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel wherePid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoriesModel whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class CategoriesModel extends Model
 {
     use ModelTree, AdminBuilder;  // 使用laravel-admin 的 tree

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Codes\BoolCode;
 use App\Codes\UserInfoCode;
 use App\Codes\UserStatusCode;
 use App\Models\UserInfoModel;
@@ -44,7 +45,7 @@ class UsersController extends AdminController
         $grid->column('profile.point', __('profile.point'));
         $grid->column('profile.mobile', __('profile.mobile'));
         $grid->column('profile.email', __('profile.email'));
-        $grid->column('status', __('user.status'))->switch(UserStatusCode::USER_STATUS_MAP);
+        $grid->column('status', __('user.status'))->switch(BoolCode::BOOL_ON_OFF_SWITCH);
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'))->sortable();
 

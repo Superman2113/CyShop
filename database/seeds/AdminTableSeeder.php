@@ -160,7 +160,31 @@ class AdminTableSeeder extends Seeder
                 'title'     => '品牌列表',
                 'icon'      => 'fa-bars',
                 'uri'       => 'brand'
-            ]
+            ], // 12
+
+            [
+                'parent_id' => 10,
+                'order'     => 12,
+                'title'     => '商品列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'goods',
+            ], // 13
+
+            [
+                'parent_id' => 10,
+                'order'     => 13,
+                'title'     => '属性名列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'property-name'
+            ], // 14
+
+            [
+                'parent_id' => 10,
+                'order'     => 14,
+                'title'     => '属性值列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'property-value',
+            ],
         ]);
 
         // add role to menu.

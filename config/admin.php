@@ -147,7 +147,7 @@ return [
     | Laravel-admin upload setting
     |--------------------------------------------------------------------------
     |
-    | File system configuration for form upload files and images, including
+    | File system configuration for form upload files and imgs, including
     | disk and upload path.
     |
     */
@@ -158,7 +158,7 @@ return [
 
         // Image and file upload path under the disk above.
         'directory' => [
-            'image' => 'images',
+            'image' => 'imgs',
             'file'  => 'files',
         ],
     ],
@@ -396,6 +396,15 @@ return [
     |
     */
     'extensions' => [
+        'wang-editor' => [
 
+            // 如果要关掉这个扩展，设置为false
+            'enable' => true,
+
+            // 编辑器的配置
+            'config' => [
+                'uploadImgServer' => '/api/upload/editor'
+            ]
+        ]
     ],
 ];

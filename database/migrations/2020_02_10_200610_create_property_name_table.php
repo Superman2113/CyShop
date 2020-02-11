@@ -27,7 +27,7 @@ class CreatePropertyNameTable extends Migration
             $table->tinyInteger('is_search')->default(BoolCode::IS_FALSE)->comment('是否搜索字段: 1是0否');
             $table->tinyInteger('is_must')->default(BoolCode::IS_FALSE)->comment('是否必须属性: 1是0否');
             $table->tinyInteger('is_multi')->default(BoolCode::IS_FALSE)->comment('是否多选: 1是0否');
-            $table->tinyInteger('status')->default(BoolCode::IS_FALSE)->comment('状态: 1启用,0禁用');
+            $table->tinyInteger('status')->default(BoolCode::IS_TRUE)->comment('状态: 1启用,0禁用');
             $table->unsignedInteger('sort')->default(99)->comment('排序字段');
             $table->timestamps();
 

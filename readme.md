@@ -88,6 +88,14 @@
 └── webpack.mix.js
 
 ```
+## 数据库
+
+### 商品表的设计
+
+- 商品表模型:
+
+![商品表模型](./docs/imgs/goods_table.png)
+
 
 ## 其他说明
 
@@ -98,4 +106,4 @@
 - Laravel 数据库默认为一主一从的读写分离。
 - Session/Cache/Queue默认驱动为Redis。
 - 采用Services模式和Repository模式组织优雅的项目结构，精简控制器(仅一行代码)。
-- 代码遵循MIT开源协议，可用于学习和修改进行商业使用。
+

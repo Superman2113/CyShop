@@ -28,9 +28,6 @@ class BrandController extends AdminController
         $grid = new Grid(new BrandModel());
 
         $grid->column('id', __('Id'));
-        $grid->column('category', __('Category Name'))->display(function (){
-            return $this->category->cate_name;
-        });
         $grid->column('brand_name', __('Brand Name'));
         $grid->column('desc', __('Desc'));
         $grid->column('created_at', __('Created at'));
@@ -75,8 +72,6 @@ class BrandController extends AdminController
     protected function form()
     {
         $form = new Form(new BrandModel());
-
-        $form->select('cate_id', __('Category Name'))->options(CategoriesModel::selectOptions());
         $form->text('brand_name', __('Brand Name'));
         $form->text('desc', __('Desc'));
         $form->number('sort', __('Asc Sort'))->default(99);
