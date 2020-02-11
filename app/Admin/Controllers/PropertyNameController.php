@@ -10,6 +10,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\RedirectResponse;
 
 class PropertyNameController extends AdminController
 {
@@ -44,40 +45,21 @@ class PropertyNameController extends AdminController
         $grid->column('status', __('Status'))->switch(BoolCode::BOOL_ON_OFF_SWITCH);
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-
+        $grid->actions(function ($actions) {
+            // 去掉显示按钮
+            $actions->disableView();
+        });
         return $grid;
     }
 
+
     /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
+     * @param $id
+     * @return RedirectResponse
      */
     protected function detail($id)
     {
-        $show = new Show(PropertyNameModel::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('title', __('Property Name'));
-        $show->field('category', __('Category Name'))->as(function (){
-            return $this->category->cate_name;
-        });
-        $show->field('is_allow_alias', __('Is allow alias'));
-        $show->field('is_color', __('Is color'));
-        $show->field('is_enum', __('Is enum'));
-        $show->field('is_input', __('Is input'));
-        $show->field('is_key', __('Is key'));
-        $show->field('is_sale', __('Is sale'));
-        $show->field('is_search', __('Is search'));
-        $show->field('is_must', __('Is must'));
-        $show->field('is_multi', __('Is multi'));
-        $show->field('status', __('Status'));
-        $show->field('sort', __('Sort'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
-
-        return $show;
+        return redirect()->route('property-name', ['id'=>$id]);
     }
 
     /**

@@ -12,6 +12,9 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\RedirectResponse;
+use PhpParser\Node\Expr\New_;
+use function foo\func;
 
 class GoodsController extends AdminController
 {
@@ -53,33 +56,31 @@ class GoodsController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
+        $grid->quickSearch(function ($model, $query){
+            $model->whereHas('brand', function ($model) use ($query){
+                $model->where('brand_name', 'like', "%{$query}%");
+            })->orWhere('goods_name', 'like', "%{$query}%")
+             ->orWhereHas('category', function ($model) use ($query){
+                 $model->where('cate_name', 'like', "%${query}%");
+             });
+        })->placeholder('输入分类,品牌,商品名称搜索');
+
+        $grid->actions(function ($actions) {
+            // 去掉显示按钮
+            $actions->disableView();
+        });
+
         return $grid;
     }
 
     /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
+     * 详情显示
+     * @param $id
+     * @return RedirectResponse
      */
     protected function detail($id)
     {
-        $show = new Show(GoodsModel::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('goods_name', __('Goods name'));
-        $show->field('brand_name', __('Brand name'));
-        $show->field('brand_id', __('Brand id'));
-        $show->field('price', __('Price'));
-        $show->field('original', __('Original'));
-        $show->field('tags', __('Tags'));
-        $show->field('content', __('Content'));
-        $show->field('summary', __('Summary'));
-        $show->field('is_sale', __('Is sale'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
-
-        return $show;
+        return redirect()->route('goods.edit', ['id' => $id]);
     }
 
     /**
@@ -94,7 +95,7 @@ class GoodsController extends AdminController
         $form->text('goods_name', __('Goods name'));
         $form->select('brand_id', __('Brand Name'))->options(BrandModel::pluck('brand_name', 'id'));
         $form->select('cate_id', __('Category Name'))->options(CategoriesModel::selectOptions());
-        $form->hasMany('imgs', __('Goods Images'), function (Form\NestedForm $form){
+        $form->hasMany('images', __('Goods Images'), function (Form\NestedForm $form){
             $form->image('link', __('Upload Image'));
             $form->number('position', __('Position'));
             $form->switch('is_master', __('Is Master Image'))->default(BoolCode::IS_FALSE);

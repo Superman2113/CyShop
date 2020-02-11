@@ -10,6 +10,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\RedirectResponse;
 
 class PropertyValueController extends AdminController
 {
@@ -34,37 +35,25 @@ class PropertyValueController extends AdminController
             return $this->property_name->title;
         });
         $grid->column('title', __('Property Value'));
-        $grid->column('category', __('Category Name'))->display(function (){
-            return $this->category->cate_name;
-        });
         $grid->column('status', __('Status'))->switch(BoolCode::BOOL_ON_OFF_SWITCH);
         $grid->column('sort', __('Sort'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
+        $grid->actions(function ($actions) {
+            // 去掉显示按钮
+            $actions->disableView();
+        });
         return $grid;
     }
 
     /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
+     * @param $id
+     * @return RedirectResponse
      */
     protected function detail($id)
     {
-        $show = new Show(PropertyValueModel::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
-        $show->field('prop_name_id', __('Prop name id'));
-        $show->field('cate_id', __('Cate id'));
-        $show->field('status', __('Status'));
-        $show->field('sort', __('Sort'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
-
-        return $show;
+        return redirect()->route('property-value', ['id'=>$id]);
     }
 
     /**
@@ -77,7 +66,6 @@ class PropertyValueController extends AdminController
         $form = new Form(new PropertyValueModel());
         $form->select('prop_name_id', __('Property Name'))->options(PropertyNameModel::pluck('title','id'));
         $form->text('title', __('Property Value'));
-        $form->select('cate_id', __('Category Name'))->options(CategoriesModel::selectOptions());
         $form->switch('status', __('Status'))->default(BoolCode::IS_TRUE);
         $form->number('sort', __('Sort'))->default(99);
 
