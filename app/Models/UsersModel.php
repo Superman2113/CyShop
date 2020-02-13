@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -110,4 +111,23 @@ class UsersModel extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(UserLoginLogModel::class, 'user_id', 'id');
     }
+
+    /**
+     * 用户收藏表
+     * @return HasMany
+     */
+    public function collect()
+    {
+        return $this->hasMany(UserCollectModel::class, 'user_id', 'id');
+    }
+
+    /**
+     * 用户优惠券
+     * @return HasMany
+     */
+    public function coupon()
+    {
+        return $this->hasMany(UserCouponModel::class, 'user_id', 'id');
+    }
+
 }
