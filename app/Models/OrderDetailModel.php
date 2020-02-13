@@ -9,6 +9,9 @@ class OrderDetailModel extends Model
 {
     protected $table = 'order_detail';
 
+
+    protected $fillable = ['order_id', 'goods_id', 'buy_num', 'single_price', 'average_cost', 'fee_money'];
+
     /**
      * 关联订单主表
      * @return BelongsTo

@@ -50,7 +50,7 @@ class UserService extends BaseService
      * @return false|string
      * @throws Exception
      */
-    public function register($params)
+    public function mregister($params)
     {
         unset($params['password_confirmation']);
         $params['password'] = md5($params['password']);

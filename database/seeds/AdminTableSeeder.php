@@ -184,7 +184,55 @@ class AdminTableSeeder extends Seeder
                 'title'     => '属性值列表',
                 'icon'      => 'fa-bars',
                 'uri'       => 'property-value',
-            ],
+            ], //15
+
+            [
+                'parent_id' => 10,
+                'order'     => 15,
+                'title'     => '优惠券码',
+                'icon'      => 'fa-bars',
+                'uri'       => 'coupon',
+            ], // 16
+
+            [
+                'parent_id' => 0,
+                'order'     => 16,
+                'title'     => '其他管理',
+                'icon'      => 'fa-bar-chart',
+                'uri'       => ''
+            ], // 17
+
+            [
+                'parent_id' => 17,
+                'order'     => 17,
+                'title'     => '物流列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'shipping-info'
+            ], // 18
+
+            [
+                'parent_id' => 0,
+                'order'     => 18,
+                'title'     => '订单管理',
+                'icon'      => 'fa-bar-chart',
+                'uri'       => ''
+            ], // 19
+
+            [
+                'parent_id' => 19,
+                'order'     => 19,
+                'title'     => '订单列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'order-master'
+            ], // 20
+
+            [
+                'parent_id' => 17,
+                'order'     => 20,
+                'title'     => '地区列表',
+                'icon'      => 'fa-bars',
+                'uri'       => 'area'
+            ]
         ]);
 
         // add role to menu.

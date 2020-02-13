@@ -17,4 +17,8 @@ Route::group([
     $router->resource('goods', GoodsController::class);
     $router->resource('property-name', PropertyNameController::class);
     $router->resource('property-value', PropertyValueController::class);
+    $router->resource('coupon', CouponController::class);
+    $router->resource('shipping-info', ShippingInfoController::class);
+    $router->resource('order-master', OrderMasterController::class);
+    $router->resource('area', AreaController::class);
 });

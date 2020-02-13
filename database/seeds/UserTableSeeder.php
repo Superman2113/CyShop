@@ -22,7 +22,9 @@ class UserTableSeeder extends Seeder
             );
             \App\Models\UserInfoModel::insert([
                 'user_id' => $user_id,
-                'nickname' => '用户:' . $user_id
+                'nickname' => '用户:' . $user_id,
+                'avatar'   => 'imgs/u=1906469856,4113625838&fm=26&gp=0.jpg',
+                'sex'      => 1,
             ]);
         }
     }
