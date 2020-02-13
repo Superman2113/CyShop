@@ -164,7 +164,7 @@ class UserController extends Controller
 
 ## 安装
 
-- ```cp .env.examp .env``, 修改.env文件中的配置。
+- ```cp .env.examp .env```, 修改.env文件中的配置。
 - `php artisan key:generate`创建秘钥。
 - `php artisan migrate `创建数据表。
 - `php artisan db:seeder AdminTableSeeder`填充权限管理表数据。
