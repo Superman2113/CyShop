@@ -101,7 +101,7 @@
 
   
 
-![](./docs/imgs/all.png)
+![完整模型](./docs/imgs/all.png)
 
 
 
@@ -186,7 +186,7 @@ class UserController extends Controller
 
 
 
-![](./docs/imgs/user.png)
+![用户列表](./docs/imgs/user.png)
 
 
 
@@ -194,7 +194,7 @@ class UserController extends Controller
 
 
 
-![](./docs/imgs/category.png)
+![分类列表](./docs/imgs/category.png)
 
 
 
@@ -202,37 +202,37 @@ class UserController extends Controller
 
 
 
-![](./docs/imgs/brand.png)
+![品牌](./docs/imgs/brand.png)
 
 - 商品列表
 
-![](./docs/imgs/goods.png)
+![商品列表](./docs/imgs/goods.png)
 
 
 
 - 属性名列表
 
-![](./docs/imgs/prop_name.png)
+![属性名列表](./docs/imgs/prop_name.png)
 
 
 
 - 属性值表
 
-![](./docs/imgs/prop_value.png)
+![属性值表](./docs/imgs/prop_value.png)
 
 - 优惠券列表
 
-![](./docs/imgs/coupon.png)
+![优惠券列表](./docs/imgs/coupon.png)
 
 - 地区列表
 
-  ![](./docs/imgs/area.png)
+ ![地区表](./docs/imgs/area.png)
 
 - 物流列表
 
-  ![](./docs/imgs/ship.png)
+ ![物流表](./docs/imgs/ship.png)
 
 - 订单列表
 
-  ![](./docs/imgs/order.png)
+ ![订单表](./docs/imgs/order.png)
 
